@@ -7,3 +7,9 @@ body {
     background-attachment: fixed;
     background-color: #ec7561;
 }
+
+@media (max-width: 800px) {
+    body {
+        background-image: url('background.png');
+    }
+}
