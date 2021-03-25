@@ -26,19 +26,59 @@ nav > img {
 }
 
 footer {
-    position: absolute;
-    bottom: 0px;
+    grid-area: f;
     background-color: #270746;
-    width: 100vw;
-    height: 70px;
     text-align: center;
     line-height: 70px;
     color: #be3a74;
     font-size: 20px;
 }
 
+main {
+    display: grid;
+    grid-template-columns: auto 500px auto;
+    grid-template-rows: auto repeat(3, 300px) 70px;
+    gap: 25px;
+    grid-template-areas:
+        '. . .'
+        '. c1 .'
+        '. c2 .'
+        '. c3 .'
+        'f f f';
+}
+
+.card {
+    border-radius: 5px;
+    background-color: rgba(255, 255, 255, 0.15);
+    backdrop-filter: blur(5px);
+    -webkit-backdrop-filter: blur(5px);
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+}
+
+#one {
+    grid-area: c1;
+}
+#two {
+    grid-area: c2;
+}
+#three {
+    grid-area: c3;
+}
+
 @media (max-width: 800px) {
     body {
         background-image: url('images/background.png');
+    }
+}
+@media (max-width: 580px) {
+    main {
+        grid-template-columns: auto 280px auto;
+        grid-template-rows: auto repeat(3, 180px) 70px;
+    }
+}
+@media (max-width: 350px) {
+    main {
+        row-gap: 20px;
+        column-gap: 0px;
     }
 }
