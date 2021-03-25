@@ -40,7 +40,6 @@ main {
     margin: 0 auto;
     margin-top: 20px;
     width: 500px;
-    border: 1px solid red;
     display: flex;
     flex-direction: column;
     gap: 50px;
@@ -86,13 +85,14 @@ main {
         font-size: 1.5em;
     }
     main {
-        grid-template-columns: auto 280px auto;
-        grid-template-rows: auto repeat(3, 180px) 70px;
+        width: 300px;
+    }
+    .card {
+        height: 200px;
     }
 }
-@media (max-width: 350px) {
+@media (max-width: 280px) {
     main {
-        row-gap: 20px;
-        column-gap: 0px;
+        width: 280px;
     }
 }
