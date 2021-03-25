@@ -3,7 +3,7 @@
 body {
     font-family: 'Poppins', sans-serif;
     margin: 0px;
-    background-image: url('marsPoster.jpg');
+    background-image: url('images/marsPoster.jpg');
     background-position: center center;
     background-size: cover;
     background-repeat: no-repeat;
@@ -39,6 +39,6 @@ footer {
 
 @media (max-width: 800px) {
     body {
-        background-image: url('background.png');
+        background-image: url('images/background.png');
     }
 }
