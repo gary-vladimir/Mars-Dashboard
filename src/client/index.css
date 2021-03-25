@@ -1,4 +1,7 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins&display=swap');
+
 body {
+    font-family: 'Poppins', sans-serif;
     margin: 0px;
     background-image: url('marsPoster.jpg');
     background-position: center center;
@@ -6,6 +9,32 @@ body {
     background-repeat: no-repeat;
     background-attachment: fixed;
     background-color: #ec7561;
+}
+
+nav {
+    height: 75px;
+    background-color: #e5e5e5;
+    position: relative;
+}
+
+nav > img {
+    height: 45px;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
+
+footer {
+    position: absolute;
+    bottom: 0px;
+    background-color: #270746;
+    width: 100vw;
+    height: 70px;
+    text-align: center;
+    line-height: 70px;
+    color: #be3a74;
+    font-size: 20px;
 }
 
 @media (max-width: 800px) {
