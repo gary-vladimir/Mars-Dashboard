@@ -14,6 +14,18 @@ app.use('/', express.static(path.join(__dirname, '../client')));
 
 // your API calls
 console.log(process.env.API_KEY);
+
+app.get('/roverData', async (req, res) => {
+    try {
+        let data = await fetch(
+            `https://api.nasa.gov/mars-photos/api/v1/rovers/curiosity/photos?sol=1000&page=2&api_key=${process.env.API_KEY}`
+        ).then((res) => res.json());
+        res.send(data);
+    } catch (err) {
+        console.log('error: ', err);
+    }
+});
+
 // example API call
 /*
 app.get('/apod', async (req, res) => {
