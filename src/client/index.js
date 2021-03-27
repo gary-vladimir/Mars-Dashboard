@@ -23,8 +23,8 @@ const render = async (root, state) => {
 const App = (state) => {
     return `
     <div class="card" id="spirit"><div class="name">${state.rovers[2]}</div></div>
-    <div class="card"><div class="name">${state.rovers[1]}</div></div>
-    <div class="card"><div class="name">${state.rovers[0]}</div></div>
+    <div class="card" id="opportunity"><div class="name">${state.rovers[1]}</div></div>
+    <div class="card" id="curiosity"><div class="name">${state.rovers[0]}</div></div>
     `;
 };
 
@@ -32,11 +32,30 @@ const App = (state) => {
 window.addEventListener('load', () => {
     render(root, store);
     let spiritButton = document.getElementById('spirit');
-    spiritButton.addEventListener('click', getServerData);
+    let opportunityButton = document.getElementById('opportunity');
+    let curiosityButton = document.getElementById('curiosity');
+    spiritButton.addEventListener('click', () => getServerData('Spirit'));
+    opportunityButton.addEventListener('click', () =>
+        getServerData('Opportunity')
+    );
+    curiosityButton.addEventListener('click', () => getServerData('Curiosity'));
 });
 
-async function getServerData() {
-    const response = await fetch('/roverData');
+async function getServerData(roverName) {
+    const response = await fetch(`/get${roverName}Data`);
     const latestEntry = await response.json();
     console.log(latestEntry);
+    const LandingDate = latestEntry.latest_photos[0].rover.landing_date;
+    const LaunchDate = latestEntry.latest_photos[0].rover.launch_date;
+    const status = latestEntry.latest_photos[0].rover.status;
+    const MostRecentPhotoDate = latestEntry.latest_photos[0].earth_date;
+    const recentPhoto = latestEntry.latest_photos;
+    const photosArray = recentPhoto.map(function (obj) {
+        return obj.img_src;
+    });
+    console.log(MostRecentPhotoDate);
+    console.log(status);
+    console.log(LaunchDate);
+    console.log(LandingDate);
+    console.log(photosArray[0]);
 }

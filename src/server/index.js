@@ -15,29 +15,40 @@ app.use('/', express.static(path.join(__dirname, '../client')));
 // your API calls
 console.log(process.env.API_KEY);
 
-app.get('/roverData', async (req, res) => {
+app.get('/getSpiritData', async (req, res) => {
     try {
         let data = await fetch(
-            `https://api.nasa.gov/mars-photos/api/v1/rovers/curiosity/photos?sol=1000&page=2&api_key=${process.env.API_KEY}`
+            `https://api.nasa.gov/mars-photos/api/v1/rovers/spirit/latest_photos?api_key=${process.env.API_KEY}`
         ).then((res) => res.json());
         res.send(data);
+        console.log(data);
     } catch (err) {
         console.log('error: ', err);
     }
 });
 
-// example API call
-/*
-app.get('/apod', async (req, res) => {
+app.get('/getOpportunityData', async (req, res) => {
     try {
-        let image = await fetch(
-            `https://api.nasa.gov/planetary/apod?api_key=${process.env.API_KEY}`
+        let data = await fetch(
+            `https://api.nasa.gov/mars-photos/api/v1/rovers/opportunity/latest_photos?api_key=${process.env.API_KEY}`
         ).then((res) => res.json());
-        res.send({ image });
+        res.send(data);
+        console.log(data);
     } catch (err) {
-        console.log('error:', err);
+        console.log('error: ', err);
     }
 });
-*/
+
+app.get('/getCuriosityData', async (req, res) => {
+    try {
+        let data = await fetch(
+            `https://api.nasa.gov/mars-photos/api/v1/rovers/curiosity/latest_photos?api_key=${process.env.API_KEY}`
+        ).then((res) => res.json());
+        res.send(data);
+        console.log(data);
+    } catch (err) {
+        console.log('error: ', err);
+    }
+});
 
 app.listen(port, () => console.log(`Example app listening on port ${port}!`));
