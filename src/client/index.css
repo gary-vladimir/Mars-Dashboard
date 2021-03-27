@@ -67,8 +67,17 @@ main {
 }
 
 .name {
+    text-align: center;
     color: white;
     font-size: 2em;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
+
+.card > img {
+    height: 100%;
     position: absolute;
     top: 50%;
     left: 50%;

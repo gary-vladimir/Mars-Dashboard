@@ -21,12 +21,40 @@ const render = async (root, state) => {
 
 // create content
 const App = (state) => {
-    return `
-    <div class="card" id="spirit"><div class="name">${state.rovers[2]}</div></div>
-    <div class="card" id="opportunity"><div class="name">${state.rovers[1]}</div></div>
-    <div class="card" id="curiosity"><div class="name">${state.rovers[0]}</div></div>
-    `;
+    if (state.apod) {
+        return `
+        <div class="card"><div class="name">status: ${
+            state.apod.status
+        }</div></div>
+        <div class="card"><div class="name">LaunchDate: ${
+            state.apod.LaunchDate
+        }</div></div>
+        <div class="card"><div class="name">LandingDate: ${
+            state.apod.LandingDate
+        }</div></div>
+        <div class="card"><div class="name">MostRecentPhotoDate: ${
+            state.apod.MostRecentPhotoDate
+        }</div></div>
+        ${imageTiles(state)}
+        `;
+    } else {
+        return `
+        <div class="card" id="spirit"><div class="name">${state.rovers[2]}</div></div>
+        <div class="card" id="opportunity"><div class="name">${state.rovers[1]}</div></div>
+        <div class="card" id="curiosity"><div class="name">${state.rovers[0]}</div></div>
+        `;
+    }
 };
+
+function imageTiles(state) {
+    let html = '';
+    const arr = state.apod.photosArray;
+    arr.forEach((element) => {
+        html += `<div class="card"><img src="${element}"></div>`;
+    });
+    // return `<div class="card"><img src="${state.apod.photosArray[0]}"></div>`;
+    return html;
+}
 
 // listening for load event because page should load before any JS is called
 window.addEventListener('load', () => {
@@ -58,4 +86,14 @@ async function getServerData(roverName) {
     console.log(LaunchDate);
     console.log(LandingDate);
     console.log(photosArray[0]);
+    updateStore(store, {
+        apod: {
+            status: status,
+            LaunchDate: LaunchDate,
+            LandingDate: LandingDate,
+            MostRecentPhotoDate: MostRecentPhotoDate,
+            photosArray: photosArray,
+        },
+    });
+    console.log(store);
 }
