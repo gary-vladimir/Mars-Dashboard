@@ -1,18 +1,18 @@
-let store = {
+let store = Immutable.Map({
     user: { name: 'Student' },
     //Launch Date, Landing Date, Status,
     //Most recently available photos Date ,
     //the most recent photos were taken
     apod: '',
     rovers: ['Curiosity', 'Opportunity', 'Spirit'],
-};
+});
 
 // add our markup to the page
 const root = document.getElementById('root');
 
 const updateStore = (store, newState) => {
-    store = Object.assign(store, newState);
-    render(root, store);
+    let newS = store.set('apod', newState);
+    render(root, newS);
 };
 
 const render = async (root, state) => {
@@ -21,34 +21,40 @@ const render = async (root, state) => {
 
 // create content
 const App = (state) => {
-    if (state.apod) {
+    if (state.get('apod')) {
         return `
         <div class="card"><div class="name">status: ${
-            state.apod.status
+            state.get('apod').status
         }</div></div>
         <div class="card"><div class="name">LaunchDate: ${
-            state.apod.LaunchDate
+            state.get('apod').LaunchDate
         }</div></div>
         <div class="card"><div class="name">LandingDate: ${
-            state.apod.LandingDate
+            state.get('apod').LandingDate
         }</div></div>
         <div class="card"><div class="name">MostRecentPhotoDate: ${
-            state.apod.MostRecentPhotoDate
+            state.get('apod').MostRecentPhotoDate
         }</div></div>
         ${imageTiles(state)}
         `;
     } else {
         return `
-        <div class="card" id="spirit"><div class="name">${state.rovers[2]}</div></div>
-        <div class="card" id="opportunity"><div class="name">${state.rovers[1]}</div></div>
-        <div class="card" id="curiosity"><div class="name">${state.rovers[0]}</div></div>
+        <div class="card" id="spirit"><div class="name">${
+            state.get('rovers')[2]
+        }</div></div>
+        <div class="card" id="opportunity"><div class="name">${
+            state.get('rovers')[1]
+        }</div></div>
+        <div class="card" id="curiosity"><div class="name">${
+            state.get('rovers')[0]
+        }</div></div>
         `;
     }
 };
 
 function imageTiles(state) {
     let html = '';
-    const arr = state.apod.photosArray;
+    const arr = state.get('apod').photosArray;
     arr.forEach((element) => {
         html += `<div class="card"><img src="${element}"></div>`;
     });
@@ -81,19 +87,12 @@ async function getServerData(roverName) {
     const photosArray = recentPhoto.map(function (obj) {
         return obj.img_src;
     });
-    console.log(MostRecentPhotoDate);
-    console.log(status);
-    console.log(LaunchDate);
-    console.log(LandingDate);
-    console.log(photosArray[0]);
+
     updateStore(store, {
-        apod: {
-            status: status,
-            LaunchDate: LaunchDate,
-            LandingDate: LandingDate,
-            MostRecentPhotoDate: MostRecentPhotoDate,
-            photosArray: photosArray,
-        },
+        status: status,
+        LaunchDate: LaunchDate,
+        LandingDate: LandingDate,
+        MostRecentPhotoDate: MostRecentPhotoDate,
+        photosArray: photosArray,
     });
-    console.log(store);
 }
